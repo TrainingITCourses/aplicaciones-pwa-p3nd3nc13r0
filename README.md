@@ -10,8 +10,8 @@ Criterios de búsqueda:
 
 Para estos criterios hay que filtrar en el fichero `launches.json`, que es la librería de lanzamientos, según el campo:
 
-- **Estado** -> `status`
-- **Agencia** -> `agencies`. Aquí hay 3. Agencias por plataforma de lanzamiento (pads), agencias por cohete (rocket) y por misión (missions). Haced la búsqueda por cualquiera de éstas.
-- **Tipo** -> `misions[0].type` dentro del array de misiones (missions). Basta con buscar en el primer registro.
+- **Estado** -> `status` Es una propiedad directa y simple del lanzamiento.
+- **Agencia** -> `agencies`. Aquí hay 3 posibilidades. Agencias por plataforma de lanzamiento (pads), agencias por cohete (rocket) y por misión (missions). Haz la búsqueda por cualquiera de ellas.
+- **Tipo** -> `misions[0].type` El tipo depende de la misión. Puede haber varias dentro del array de misiones (missions), pero basta con buscar en el primer registro.
 
 En `speed\src\app\store\models` tenéis los modelos de datos en TypeScript por si os sirven de ayuda.
