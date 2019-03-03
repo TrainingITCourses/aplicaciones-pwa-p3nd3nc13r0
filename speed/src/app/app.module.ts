@@ -1,18 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BuscadorContainerComponent } from './app-buscador-container.component';
+import { BusquedaCriteriosPresenterComponent } from './busqueda-criterios-presenter';
+import { ResultadoBusquedaPresenterComponent } from './resultado-busqueda-presenter';
+import { ContadorPresenterComponent } from './contador-presenter.component';
+
+import { BuscadorService } from './store/buscador.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { TipoEffects } from './store/tipo/tipo.effects';
+import { StatusEffects } from './store/status/status.effect';
+import { LaunchEffects } from './store/launch/launch.effects';
+import { AgenciaEffects } from './store/agencia/agencia.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BuscadorContainerComponent,
+    BusquedaCriteriosPresenterComponent,
+    ResultadoBusquedaPresenterComponent,
+    ContadorPresenterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([LaunchEffects, StatusEffects, TipoEffects, AgenciaEffects]),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [BuscadorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
